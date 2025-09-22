@@ -26,7 +26,7 @@ return new class extends Migration
             'name' => 'User',
             'email' => 'user@example.com',
             'password' => Hash::make('12345678'),
-            'role' => 'users',
+            'role' => 'user',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
