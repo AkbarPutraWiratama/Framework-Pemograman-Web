@@ -5,11 +5,17 @@ use App\Http\Middleware\RoleCheck;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UtsController;
 
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/uts', [UtsController::class, 'index'])->name('uts.index');
+Route::get('/uts/pemrograman-web', [UtsController::class, 'pemrogramanWeb'])->name('uts.pemrograman_web');
+Route::get('/uts/database', [UtsController::class, 'database'])->name('uts.database');
+
 
 Route::get('dashboard', function () {
     return view('dashboard');
