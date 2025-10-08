@@ -34,14 +34,16 @@ class AuthenticatedSessionController extends Controller
 
             $user = Auth::user();
 
-            // redirect sesuai role langsung di sini
-            if ($user->role === 'admin') {
-                return redirect()->route('dashboard.admin');
-            } elseif ($user->role === 'owner') {
-                return redirect()->route('dashboard.owner');
-            } else {
-                return redirect()->route('dashboard.user');
-            }
+            return redirect()->intended('/dashboard');
+
+            // // redirect sesuai role langsung di sini
+            // if ($user->role === 'admin') {
+            //     return redirect()->route('dashboard.admin');
+            // } elseif ($user->role === 'owner') {
+            //     return redirect()->route('dashboard.owner');
+            // } else {
+            //     return redirect()->route('dashboard.user');
+            // }
         }
 
         return back()->withErrors([

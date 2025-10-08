@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UtsController;
+use App\Http\Controllers\ProdukController;
+
 
 
 Route::get('/', function () {
@@ -15,7 +17,6 @@ Route::get('/', function () {
 Route::get('/uts', [UtsController::class, 'index'])->name('uts.index');
 Route::get('/uts/pemrograman-web', [UtsController::class, 'pemrogramanWeb'])->name('uts.pemrograman_web');
 Route::get('/uts/database', [UtsController::class, 'database'])->name('uts.database');
-
 
 Route::get('dashboard', function () {
     return view('dashboard');
@@ -29,17 +30,17 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('posts', PostController::class);
 });
 
-Route::get('/dashboard/admin', function () {
-    return view('dashboard.admin');
-})->middleware(['auth', 'verified', 'RoleCheck:admin'])->name('dashboard.admin');
+// Route::get('/dashboard/admin', function () {
+//     return view('dashboard.admin');
+// })->middleware(['auth', 'verified', 'RoleCheck:admin'])->name('dashboard.admin');
 
-Route::get('/dashboard/user', function () {
-    return view('dashboard.user');
-})->middleware(['auth', 'verified', 'RoleCheck:user'])->name('dashboard.user');
+// Route::get('/dashboard/user', function () {
+//     return view('dashboard.user');
+// })->middleware(['auth', 'verified', 'RoleCheck:user'])->name('dashboard.user');
 
-Route::get('/dashboard/owner', function () {
-    return view('dashboard.owner');
-})->middleware(['auth', 'verified', 'RoleCheck:owner'])->name('dashboard.owner');
+// Route::get('/dashboard/owner', function () {
+//     return view('dashboard.owner');
+// })->middleware(['auth', 'verified', 'RoleCheck:owner'])->name('dashboard.owner');
 
 Route::get('/rahasia', function () {
     return view('rahasia');
@@ -54,6 +55,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/produk/{angka}', [ProdukController::class, 'show']);
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/create', [ProductController::class, 'create'])->name('product-create');
