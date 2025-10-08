@@ -3,28 +3,37 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class ProductController extends Controller
 {
-    /**
-     * Terima parameter angka dari route, tambah angka (contoh +7),
-     * lalu kirim ke view 'products.index'.
-     *
-     * @param  int  $number
-     * @return \Illuminate\View\View
-     */
-    public function index($number)
+    // Menampilkan daftar produk
+    public function index()
     {
-        // pastikan integer
-        $number = (int) $number;
-
-        // angka yang ditambahkan (bebas ganti)
-        $added = 7;
-
-        // hasil penjumlahan
-        $sum = $number + $added;
-
-        // lempar ke view products.index dengan variabel 'number' dan 'sum'
-        return view('products.index', compact('number', 'added', 'sum'));
+        $products = Product::all();
+        return view('master-data.product-master.index', compact('products'));
     }
-};
+
+    // Menampilkan form tambah produk
+    public function create()
+    {
+        return view('master-data.product-master.create-product');
+    }
+
+    // Menyimpan produk baru
+    public function store(Request $request)
+    {
+        $request->validate([
+            'product_name' => 'required|string|max:255',
+            'unit' => 'required|string|max:50',
+            'type' => 'required|string|max:100',
+            'information' => 'nullable|string',
+            'qty' => 'required|integer|min:1',
+            'producer' => 'required|string|max:255',
+        ]);
+
+        Product::create($request->all());
+
+        return redirect()->back()->with('success', 'Product created successfully!');
+    }
+}
