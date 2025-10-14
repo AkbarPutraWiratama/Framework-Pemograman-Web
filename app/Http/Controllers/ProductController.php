@@ -22,18 +22,30 @@ class ProductController extends Controller
 
     // Menyimpan produk baru
     public function store(Request $request)
+{
+    $validated = $request->validate([
+        'product_name' => 'required|string|max:255',
+        'unit' => 'required|string',
+        'type' => 'required|string',
+        'information' => 'nullable|string',
+        'qty' => 'required|integer',
+        'producer' => 'required|string|max:255',
+    ]);
+
+    // Simpan data
+    \App\Models\Product::create($validated);
+
+    // Redirect ke index dengan pesan sukses
+    return redirect()
+        ->route('product-index')
+        ->with('success', 'Product created successfully!');
+}
+
+    public function destroy($id)
     {
-        $request->validate([
-            'product_name' => 'required|string|max:255',
-            'unit' => 'required|string|max:50',
-            'type' => 'required|string|max:100',
-            'information' => 'nullable|string',
-            'qty' => 'required|integer|min:1',
-            'producer' => 'required|string|max:255',
-        ]);
+    $product = Product::findOrFail($id);
+    $product->delete();
 
-        Product::create($request->all());
-
-        return redirect()->back()->with('success', 'Product created successfully!');
+    return redirect()->route('product-index')->with('success', 'Product deleted successfully.');
     }
 }
