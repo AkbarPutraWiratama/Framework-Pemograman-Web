@@ -33,7 +33,7 @@ class ProductController extends Controller
     ]);
 
     // Simpan data
-    \App\Models\Product::create($validated);
+    Product::create($validated);
 
     // Redirect ke index dengan pesan sukses
     return redirect()
