@@ -48,25 +48,24 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
-    // Validasi input pertama
-    $request->validate([
-        'name' => 'required|max:255',
-        'price' => 'required|numeric',
-        'stock' => 'required|integer',
-        // tambahkan validasi lain jika ada
+    // Validasi input sesuai kolom tabel
+    $validated = $request->validate([
+        'product_name' => 'required|string|max:255',
+        'unit' => 'required|string',
+        'type' => 'required|string',
+        'information' => 'nullable|string',
+        'qty' => 'required|integer',
+        'producer' => 'required|string|max:255',
     ]);
 
-    // Ambil produk
+    // Ambil produk berdasarkan ID
     $product = Product::findOrFail($id);
-    // Update data
-    $product->name = $request->name;
-    $product->price = $request->price;
-    $product->stock = $request->stock;
-    // jika ada field lain, isi juga
-    $product->save();
 
-    // Redirect kembali ke daftar dengan pesan sukses
-    return redirect()->route('product-index')->with('success', 'Product updated successfully.');
+    // Update data sesuai field tabel
+    $product->update($validated);
+
+    // Redirect kembali ke halaman daftar
+    return redirect()->route('product-index')->with('success', 'Product updated successfully!');
     }
 
     public function destroy($id)

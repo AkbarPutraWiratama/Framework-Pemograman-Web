@@ -1,33 +1,80 @@
-@extends('layouts.app')
-@section('content')
-  <h1>Edit Produk</h1>
-  <form action="{{ route('product-update', $product->id) }}" method="POST">
-    @csrf
-    @method('PUT')
-    <div>
-      <label>Nama:</label>
-      <input type="text" name="name" value="{{ old('name', $product->name) }}">
-      @error('name')
-        <div style="color:red">{{ $message }}</div>
-      @enderror
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="text-xl font-semibold leading-tight text-gray-800">
+            {{ __('Edit Product') }}
+        </h2>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    <div class="container mx-auto mt-5">
+                        <h2 class="mb-5 text-2xl font-bold">Edit Product</h2>
+
+                        <form action="{{ route('product-update', $product->id) }}" method="POST" class="space-y-4">
+                            @csrf
+                            @method('PUT')
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Product Name</label>
+                                <input type="text" name="product_name" value="{{ old('product_name', $product->product_name) }}"
+                                    class="block w-full p-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="unit" class="block text-sm font-medium text-gray-700">Unit</label>
+                                <select id="unit" name="unit"
+                                    class="block w-full p-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    required>
+                                    <option value="" disabled selected>Select a unit</option>
+                                    <option value="kg">Kilogram (kg)</option>
+                                    <option value="ltr">Liter (ltr)</option>
+                                    <option value="pcs">Pieces (pcs)</option>
+                                    <option value="box">Box</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Type</label>
+                                <input type="text" name="type" value="{{ old('type', $product->type) }}"
+                                    class="block w-full p-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Information</label>
+                                <textarea name="information" rows="3"
+                                    class="block w-full p-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">{{ old('information', $product->information) }}</textarea>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Quantity</label>
+                                <input type="number" name="qty" value="{{ old('qty', $product->qty) }}"
+                                    class="block w-full p-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Producer</label>
+                                <input type="text" name="producer" value="{{ old('producer', $product->producer) }}"
+                                    class="block w-full p-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                            </div>
+
+                            <div class="mt-6 flex justify-end">
+                                <a href="{{ route('product-index') }}"
+                                   class="mr-2 inline-flex justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 border border-gray-300 rounded-md shadow-sm hover:bg-gray-300 focus:ring-2 focus:ring-gray-400">
+                                   Cancel
+                                </a>
+                                <button type="submit"
+                                    class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500">
+                                    Save Changes
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    @vite('resources/js/app.js')
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-      <label>Harga:</label>
-      <input type="text" name="price" value="{{ old('price', $product->price) }}">
-      @error('price')
-        <div style="color:red">{{ $message }}</div>
-      @enderror
-    </div>
-    <div>
-      <label>Stok:</label>
-      <input type="text" name="stock" value="{{ old('stock', $product->stock) }}">
-      @error('stock')
-        <div style="color:red">{{ $message }}</div>
-      @enderror
-    </div>
-    <div>
-      <button type="submit">Simpan Perubahan</button>
-    </div>
-  </form>
-  <a href="{{ route('product-index') }}">Kembali ke daftar</a>
-@endsection
+</x-app-layout>

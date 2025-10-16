@@ -46,6 +46,13 @@
                                     <td class="px-4 py-2">{{ $product->qty }}</td>
                                     <td class="px-4 py-2">{{ $product->producer }}</td>
                                     <td class="px-4 py-2 space-x-2">
+                                        {{-- Tombol edit --}}
+                                        <form action="{{ route('product-edit', $product->id) }}" method="GET" class="inline">
+                                            @csrf
+                                            <button type="submit"
+                                                class="inline-flex items-center px-3 py-1 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                Edit
+                                            </button>
                                         {{-- Tombol delete --}}
                                         <form action="{{ route('product-delete', $product->id) }}" method="POST" class="inline">
                                             @csrf

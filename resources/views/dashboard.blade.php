@@ -21,6 +21,12 @@
                         Masuk ke Forum
                     </a>
                 </div>
+                <div class="mt-6 flex justify-center">
+                    <a href="{{ route('product-index') }}" 
+                       class="px-6 py-2 bg-gray-500 text-white font-semibold rounded-full shadow-md hover:bg-gray-700 transition">
+                        Masuk ke Product
+                    </a>
+                </div>
             </div>
         </div>
     </div>
