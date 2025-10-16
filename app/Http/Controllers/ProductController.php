@@ -22,7 +22,7 @@ class ProductController extends Controller
 
     // Menyimpan produk baru
     public function store(Request $request)
-{
+    {
     $validated = $request->validate([
         'product_name' => 'required|string|max:255',
         'unit' => 'required|string',
@@ -37,9 +37,37 @@ class ProductController extends Controller
 
     // Redirect ke index dengan pesan sukses
     return redirect()
-        ->route('product-index')
-        ->with('success', 'Product created successfully!');
-}
+        ->route('product-index')->with('success', 'Product created successfully!');
+    }
+
+    public function edit($id)
+    {
+    $product = Product::findOrFail($id);
+    return view('master-data.product-master.edit-product', compact('product'));
+    }
+
+    public function update(Request $request, $id)
+    {
+    // Validasi input pertama
+    $request->validate([
+        'name' => 'required|max:255',
+        'price' => 'required|numeric',
+        'stock' => 'required|integer',
+        // tambahkan validasi lain jika ada
+    ]);
+
+    // Ambil produk
+    $product = Product::findOrFail($id);
+    // Update data
+    $product->name = $request->name;
+    $product->price = $request->price;
+    $product->stock = $request->stock;
+    // jika ada field lain, isi juga
+    $product->save();
+
+    // Redirect kembali ke daftar dengan pesan sukses
+    return redirect()->route('product-index')->with('success', 'Product updated successfully.');
+    }
 
     public function destroy($id)
     {
