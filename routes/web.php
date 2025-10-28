@@ -65,5 +65,8 @@ Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('pro
 Route::put('/products/{id}/update', [ProductController::class, 'update'])->name('product-update');
 Route::delete('/products/{id}/delete', [ProductController::class, 'destroy'])->name('product-delete');
 
+Route::get('/product-export-excel', [ProductController::class, 'exportExcel'])->name('product.export.excel');
+
+
 
 require __DIR__.'/auth.php';

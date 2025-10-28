@@ -15,11 +15,18 @@
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
 
-                    {{-- Tombol ke halaman create --}}
-                    <div class="mb-5">
+                    {{-- Tombol ke halaman create dan export --}}
+                    <div class="mb-5 flex items-center space-x-3">
+                        {{-- Tombol tambah produk --}}
                         <a href="{{ route('product-create') }}"
                             class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                             + Add New Product
+                        </a>
+
+                        {{-- Tombol export ke excel --}}
+                        <a href="{{ route('product.export.excel') }}"
+                            class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-green-600 border border-transparent rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                            v Export to Excel
                         </a>
                     </div>
 
